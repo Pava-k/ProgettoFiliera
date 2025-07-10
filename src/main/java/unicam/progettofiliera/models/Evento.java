@@ -48,9 +48,7 @@ public class Evento {
         return luogo;
     }
 
-    public void setLuogo(String luogo) {
-        this.luogo = luogo;
-    }
+    public void setLuogo(String luogo) {this.luogo = luogo; }
 
     public String getDescrizione() {
         return descrizione;

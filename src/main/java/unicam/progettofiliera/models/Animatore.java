@@ -14,15 +14,10 @@ public class Animatore extends UtenteRegistrato{
     private List<Evento> eventiPubblicati = new ArrayList<>();
     //TODO private CasellaPostale casellaPostale
 
-    public Animatore() {
-    }
+    public Animatore() { }
 
 
-    public Animatore(String nome, String password) {
-        super(nome, password);
-    }
+    public Animatore(String nome, String password) {super(nome, password); }
 
-    public List<Evento> getEventiPubblicati() {
-        return eventiPubblicati;
-    }
+    public List<Evento> getEventiPubblicati() {return eventiPubblicati;}
 }

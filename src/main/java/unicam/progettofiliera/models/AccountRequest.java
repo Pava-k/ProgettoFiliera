@@ -15,6 +15,9 @@ public class AccountRequest {
     private String password;
     private Ruolo ruoloRichiesto;
 
+    public AccountRequest() {}
+
+
     public AccountRequest(String nome, String password, Ruolo ruoloRichiesto) {
         this.nome = nome;
         this.password = password;
