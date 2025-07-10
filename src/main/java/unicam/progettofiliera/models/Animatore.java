@@ -15,13 +15,19 @@ public class Animatore extends UtenteRegistrato{
 
     //TODO private CasellaPostale casellaPostale
 
-    public Animatore() {}
+    public Animatore() {
+
+    }
+
 
     public Animatore(String nome, String password) {
+
         super(nome, password);
+
     }
 
     public List<Evento> getEventiPubblicati() {
+
         return eventiPubblicati;
     }
 }
