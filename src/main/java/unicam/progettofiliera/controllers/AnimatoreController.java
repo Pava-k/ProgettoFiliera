@@ -2,10 +2,7 @@ package unicam.progettofiliera.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import unicam.progettofiliera.infrastructure.AnimatoreRepository;
 import unicam.progettofiliera.models.Animatore;
 
@@ -25,4 +22,5 @@ public class AnimatoreController {
         animatoreRepository.save(animatore);
         return ResponseEntity.ok(animatore);
     }
+
 }

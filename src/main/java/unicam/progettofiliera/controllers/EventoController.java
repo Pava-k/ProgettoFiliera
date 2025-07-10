@@ -1,5 +1,6 @@
 package unicam.progettofiliera.controllers;
 
+import jakarta.websocket.server.PathParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,7 @@ import unicam.progettofiliera.models.Evento;
 import unicam.progettofiliera.service.EventoHandler;
 
 @RestController
-@RequestMapping("/BachecaEventi")
+@RequestMapping("/bachecaEventi")
 public class EventoController {
     private final EventoHandler eventoHandler;
 
@@ -19,10 +20,15 @@ public class EventoController {
     public EventoController(EventoHandler eventoHandler) {
         this.eventoHandler = eventoHandler;
     }
+
     @PostMapping("/add/{id}")
     public ResponseEntity<Evento> pubblicaEvento(@PathVariable Long id, @RequestBody Evento evento){
         eventoHandler.caricaEvento(id,evento);
-        return ResponseEntity.status(HttpStatus.CREATED).body(evento);
-
+        return ResponseEntity.ok(evento);
+    }
+    @DeleteMapping("/delete/{id}/{idAnimatore}")
+    public ResponseEntity<String> eliminaEvento(@PathVariable Long id, @PathVariable Long idAnimatore) {
+        eventoHandler.deleteEvento(id,idAnimatore);
+        return ResponseEntity.ok("Evento cancellato");
     }
 }
