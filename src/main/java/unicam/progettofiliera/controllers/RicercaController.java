@@ -15,7 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/ricerca")
 public class RicercaController {
-    private RicercaHandler ricercaHandler;
+    private final RicercaHandler ricercaHandler;
 
 
     @Autowired

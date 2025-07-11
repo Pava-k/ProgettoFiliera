@@ -3,15 +3,13 @@ package unicam.progettofiliera.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unicam.progettofiliera.models.AccountRequest;
-import unicam.progettofiliera.models.Ruolo;
 import unicam.progettofiliera.service.GestoreHandler;
 
 @RestController
 @RequestMapping("/gestorePiattaforma")
 public class GestoreController {
 
-    private GestoreHandler gestoreHandler;
+    private final GestoreHandler gestoreHandler;
     public GestoreController(GestoreHandler gestoreHandler) {
         this.gestoreHandler = gestoreHandler;
 

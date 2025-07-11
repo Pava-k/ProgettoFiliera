@@ -1,13 +1,9 @@
 package unicam.progettofiliera.controllers;
 
-import jakarta.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unicam.progettofiliera.infrastructure.AnimatoreRepository;
-import unicam.progettofiliera.infrastructure.EventoRepository;
-import unicam.progettofiliera.models.Animatore;
 import unicam.progettofiliera.models.Evento;
 import unicam.progettofiliera.service.EventoHandler;
 
@@ -22,9 +18,9 @@ public class EventoController {
     }
 
     @PostMapping("/add/{id}")
-    public ResponseEntity<Evento> pubblicaEvento(@PathVariable Long id, @RequestBody Evento evento){
+    public ResponseEntity<String> pubblicaEvento(@PathVariable Long id, @RequestBody Evento evento){
         eventoHandler.caricaEvento(id,evento);
-        return ResponseEntity.ok(evento);
+        return ResponseEntity.ok("Evento aggiunto");
     }
     @DeleteMapping("/delete/{id}/{idAnimatore}")
     public ResponseEntity<String> eliminaEvento(@PathVariable Long id, @PathVariable Long idAnimatore) {

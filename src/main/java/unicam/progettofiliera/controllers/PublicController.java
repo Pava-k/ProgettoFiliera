@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import unicam.progettofiliera.infrastructure.AccountRequestRepository;
 import unicam.progettofiliera.models.AccountRequest;
 import unicam.progettofiliera.service.RegistrazioneHandler;
 
@@ -18,7 +17,7 @@ import unicam.progettofiliera.service.RegistrazioneHandler;
 @RequestMapping("/public")
 public class PublicController {
 
-    private RegistrazioneHandler registrazioneHandler;
+    private final RegistrazioneHandler registrazioneHandler;
 
     public PublicController(RegistrazioneHandler registrazioneHandler) {
         this.registrazioneHandler = registrazioneHandler;

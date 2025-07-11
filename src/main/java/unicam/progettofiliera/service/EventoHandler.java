@@ -2,7 +2,6 @@ package unicam.progettofiliera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 import unicam.progettofiliera.infrastructure.AnimatoreRepository;
 import unicam.progettofiliera.infrastructure.EventoRepository;
 import unicam.progettofiliera.models.Animatore;
@@ -20,11 +19,11 @@ public class EventoHandler {
         this.animatoreRepository = animeRepository;
     }
 
-    public Evento caricaEvento(Long animatoreId, Evento nuovoEvento) {
+    public void caricaEvento(Long animatoreId, Evento nuovoEvento) {
         Animatore animatore = animatoreRepository.findById(animatoreId).orElseThrow(() -> new RuntimeException("Animatore non trovato"));
         nuovoEvento.setAnimatore(animatore);
         animatore.getEventiPubblicati().add(nuovoEvento);
-        return eventoRepository.save(nuovoEvento);
+        eventoRepository.save(nuovoEvento);
     }
 
     public void deleteEvento(Long animatoreId, Long eventoId) {
