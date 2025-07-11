@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.*;
 import unicam.progettofiliera.models.AccountRequest;
 import unicam.progettofiliera.models.Animatore;
+import unicam.progettofiliera.models.Ruolo;
 import unicam.progettofiliera.modelsDaImplementare.Acquirente;
 import unicam.progettofiliera.modelsDaImplementare.Curatore;
 import unicam.progettofiliera.modelsDaImplementare.Venditori.Distributore;
@@ -22,7 +23,11 @@ public class GestoreHandler {
     private final CuratoreRepository curatoreRepository;
     private final AcquirenteRepository acquirenteRepository;
 
-    public GestoreHandler(AccountRequestRepository accountRequestRepository, AnimatoreRepository animatoreRepository, VenditoreRepository venditoreRepository, CuratoreRepository curatoreRepository, AcquirenteRepository acquirenteRepository) {
+    public GestoreHandler(AccountRequestRepository accountRequestRepository,
+                          AnimatoreRepository animatoreRepository,
+                          VenditoreRepository venditoreRepository,
+                          CuratoreRepository curatoreRepository,
+                          AcquirenteRepository acquirenteRepository) {
         this.accountRequestRepository = accountRequestRepository;
         this.animatoreRepository = animatoreRepository;
         this.venditoreRepository = venditoreRepository;
@@ -37,12 +42,23 @@ public class GestoreHandler {
     public void approvaRichiesta(Long id) {
         AccountRequest richiesta = accountRequestRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Richiesta non trovata"));
+        Ruolo ruolo = richiesta.getRuoloRichiesto();
         String nome = richiesta.getNome();
         String password = richiesta.getPassword();
 
-        switch(richiesta.getRuoloRichiesto()) {
+        creaAccount(ruolo, nome, password);
+        accountRequestRepository.delete(richiesta);
+    }
 
-            case CURATORE ->{
+    public ResponseEntity<String> rifiutaRichiesta(Long richiestaId) {
+        accountRequestRepository.deleteById(richiestaId);
+        return ResponseEntity.ok().body("Richiesta rifiutata");
+    }
+
+    private void creaAccount(Ruolo ruolo, String nome, String password) {
+
+        switch(ruolo) {
+            case CURATORE -> {
                 Curatore curatore = new Curatore(nome,password);
                 curatoreRepository.save(curatore);
             }
@@ -54,29 +70,19 @@ public class GestoreHandler {
                 Acquirente acquirente = new Acquirente(nome,password);
                 acquirenteRepository.save(acquirente);
             }
-            case PRODUTTORE ->{
+            case PRODUTTORE -> {
                 Produttore produttore = new Produttore(nome,password);
                 venditoreRepository.save(produttore);
             }
             case DISTRIBUTORE -> {
                 Distributore distributore = new Distributore(nome,password);
                 venditoreRepository.save(distributore);
-
             }
             case TRASFORMATORE -> {
                 Trasformatore trasformatore = new Trasformatore(nome,password);
                 venditoreRepository.save(trasformatore);
             }
-            default -> throw new RuntimeException("Richiesta non trovata");
-
+            default -> throw new RuntimeException("Ruolo non valido");
         }
-        accountRequestRepository.delete(richiesta);
     }
-
-    public ResponseEntity<String> rifiutaRichiesta(Long richiestaId) {
-        accountRequestRepository.deleteById(richiestaId);
-        return ResponseEntity.ok().body("Richiesta rifiutata");
-    }
-
-
 }
