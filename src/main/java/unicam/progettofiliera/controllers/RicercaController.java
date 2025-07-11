@@ -23,22 +23,35 @@ public class RicercaController {
         this.ricercaHandler = ricercaHandler;
     }
 
+    @GetMapping("/prodotti")
+    public ResponseEntity<Object> ricercaProdotti() {
+        List<Prodotto> prodotti = ricercaHandler.ricercaProdotti();
+        if (!prodotti.isEmpty())
+            return ResponseEntity.ok(prodotti);
+        return ResponseEntity.ok("Il marketplace è vuoto!");
+    }
+
     @GetMapping("/prodotti/{keyword}")
-    public ResponseEntity<Object> ricercaProdotto(@PathVariable String keyword) {
-        List<Prodotto> prodotti = ricercaHandler.ricercaProdotto(keyword);
+    public ResponseEntity<Object> ricercaProdottoByName(@PathVariable String keyword) {
+        List<Prodotto> prodotti = ricercaHandler.ricercaProdottoByName(keyword);
         if (!prodotti.isEmpty())
             return ResponseEntity.ok(prodotti);
         return ResponseEntity.ok("Prodotto non trovato");
     }
 
+    @GetMapping("/eventi")
+    public ResponseEntity<Object> ricercaEventi() {
+        List<Evento> eventi = ricercaHandler.ricercaEventi();
+        if (!eventi.isEmpty())
+            return ResponseEntity.ok(eventi);
+        return ResponseEntity.ok("La bacheca eventi è vuota!");
+    }
+
     @GetMapping("/eventi/{keyword}")
-    public ResponseEntity<Object> ricercaEventi(@PathVariable String keyword) {
-        List<Evento> eventi = ricercaHandler.ricercaEvento(keyword);
+    public ResponseEntity<Object> ricercaEventiByName(@PathVariable String keyword) {
+        List<Evento> eventi = ricercaHandler.ricercaEventoByName(keyword);
         if (!eventi.isEmpty())
             return ResponseEntity.ok(eventi);
         return ResponseEntity.ok("Evento non trovato");
     }
-
-
-
 }

@@ -1,26 +1,32 @@
 package unicam.progettofiliera.controllers;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unicam.progettofiliera.infrastructure.AnimatoreRepository;
-import unicam.progettofiliera.models.Animatore;
+import unicam.progettofiliera.models.Evento;
+import unicam.progettofiliera.service.AnimatoreHandler;
 
 @RestController
-@RequestMapping("/animatori")
+@RequestMapping("/bachecaEventi")
 public class AnimatoreController {
-
-    private final AnimatoreRepository animatoreRepository;
+    private final AnimatoreHandler animatoreHandler;
 
     @Autowired
-    public AnimatoreController(AnimatoreRepository animatoreRepository) {
-        this.animatoreRepository = animatoreRepository;
+    public AnimatoreController(AnimatoreHandler animatoreHandler) {
+        this.animatoreHandler = animatoreHandler;
     }
 
-    @PostMapping("/add")
-    public ResponseEntity<Animatore> add(@RequestBody Animatore animatore) {
-        animatoreRepository.save(animatore);
-        return ResponseEntity.ok(animatore);
+    @PostMapping("/{idAnimatore}/add")
+    public ResponseEntity<String> pubblicaEvento(@PathVariable Long idAnimatore,
+                                                 @RequestBody Evento evento){
+        animatoreHandler.caricaEvento(idAnimatore,evento);
+        return ResponseEntity.ok("Evento aggiunto");
     }
-
+    @DeleteMapping("/{idAnimatore}/delete/{idEvento}")
+    public ResponseEntity<String> eliminaEvento(@PathVariable Long idAnimatore,
+                                                @PathVariable Long idEvento) {
+        animatoreHandler.deleteEvento(idAnimatore,idEvento);
+        return ResponseEntity.ok("Evento cancellato");
+    }
 }

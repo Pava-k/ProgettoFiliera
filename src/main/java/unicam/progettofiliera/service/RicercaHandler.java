@@ -20,12 +20,20 @@ public class RicercaHandler {
         this.prodottoRepository = prodottoRepository;
     }
 
-    public List<Evento> ricercaEvento(String keyword) {
-       return eventoRepository.findByNomeContainingIgnoreCase(keyword);
+    public List<Prodotto> ricercaProdotti() {
+        return prodottoRepository.findAll();
     }
 
-    public List<Prodotto> ricercaProdotto(String keyword) {
+    public List<Prodotto> ricercaProdottoByName(String keyword) {
         return prodottoRepository.findByNomeContainingIgnoreCase(keyword);
+    }
+
+    public List<Evento> ricercaEventi() {
+        return eventoRepository.findAll();
+    }
+
+    public List<Evento> ricercaEventoByName(String keyword) {
+        return eventoRepository.findByNomeContainingIgnoreCase(keyword);
     }
 
 }

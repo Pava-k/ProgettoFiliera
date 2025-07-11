@@ -25,7 +25,6 @@ public abstract class UtenteRegistrato {
         return id;
     }
 
-    //metodo di prova per debug
     public void setId(Long id) {
         this.id = id;
     }
