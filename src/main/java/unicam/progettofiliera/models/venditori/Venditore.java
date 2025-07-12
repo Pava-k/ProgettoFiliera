@@ -9,7 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_venditore")
 public abstract class Venditore extends UtenteRegistrato {
 
     @OneToMany(mappedBy = "venditore", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -5,7 +5,8 @@ import jakarta.persistence.*;
 import unicam.progettofiliera.models.venditori.Venditore;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_venditore")
 public abstract class Prodotto {
 
     @Id

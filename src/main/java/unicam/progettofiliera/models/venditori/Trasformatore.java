@@ -1,5 +1,6 @@
 package unicam.progettofiliera.models.venditori;
 
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.prodotti.ProdottoTrasformatore;
@@ -7,6 +8,7 @@ import unicam.progettofiliera.models.prodotti.ProdottoTrasformatore;
 import java.util.List;
 
 @Entity
+@DiscriminatorValue("Trasformatore")
 public class Trasformatore extends Venditore {
 
     public Trasformatore() {}
