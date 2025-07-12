@@ -7,6 +7,4 @@ import java.util.List;
 
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
     List<Prodotto> findByNomeContainingIgnoreCase(String keyword);
-
-    Long id(Long id);
 }

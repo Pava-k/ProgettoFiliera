@@ -31,4 +31,5 @@ public abstract class Venditore extends UtenteRegistrato {
 
     //FACTORY METHOD
     public abstract Prodotto creaProdotto(String nome, String descrizione, double prezzo);
+
 }

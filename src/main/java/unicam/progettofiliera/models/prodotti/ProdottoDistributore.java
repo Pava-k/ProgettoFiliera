@@ -11,5 +11,4 @@ public class ProdottoDistributore extends Prodotto {
         super(nome, descrizione, prezzo);
     }
 
-
 }

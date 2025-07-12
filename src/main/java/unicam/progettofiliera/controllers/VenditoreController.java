@@ -12,6 +12,7 @@ import unicam.progettofiliera.service.VenditoreHandler;
 @RestController
 @RequestMapping("/marketplace")
 public class VenditoreController {
+
     private final VenditoreHandler venditoreHandler;
 
     @Autowired
@@ -20,48 +21,50 @@ public class VenditoreController {
     }
 
     @PostMapping("/produttore/{idVenditore}/add")
-    public ResponseEntity<String> caricaProdottoProduttore(@PathVariable Long idVenditore, @RequestBody ProdottoProduttore prodottoProduttore) {
+    public ResponseEntity<String> caricaProdottoProduttore(@PathVariable Long idVenditore,
+                                                           @RequestBody ProdottoProduttore prodotto) {
         venditoreHandler.caricaProdottoProduttore(
-                prodottoProduttore.getNome(),
                 idVenditore,
-                prodottoProduttore.getDescrizione(),
-                prodottoProduttore.getPrezzo(),
-                prodottoProduttore.getProcessiProduttivi()
+                prodotto.getNome(),
+                prodotto.getDescrizione(),
+                prodotto.getPrezzo(),
+                prodotto.getProcessiProduttivi()
         );
-        return ResponseEntity.ok("Prodotto in attesa di verifica da parte del curatore, puoi chiudere questa pagina");
+        return ResponseEntity.ok("Prodotto in attesa di verifica, puoi chiudere questa pagina");
     }
 
     @PostMapping("/trasformatore/{idVenditore}/add")
-    public ResponseEntity<String> caricaProdottoTrasformatore(@PathVariable Long idVenditore, @RequestBody ProdottoTrasformatore prodotto) {
+    public ResponseEntity<String> caricaProdottoTrasformatore(@PathVariable Long idVenditore,
+                                                              @RequestBody ProdottoTrasformatore prodotto) {
         venditoreHandler.caricaProdottoTrasformatore(
-                prodotto.getNome(),
                 idVenditore,
+                prodotto.getNome(),
                 prodotto.getDescrizione(),
                 prodotto.getPrezzo(),
                 prodotto.getProcessiTrasformativi(),
                 prodotto.getCollaboratori()
         );
-        return ResponseEntity.ok("Prodotto in attesa di verifica da parte del curatore, puoi chiudere questa pagina");
+        return ResponseEntity.ok("Prodotto in attesa di verifica, puoi chiudere questa pagina");
     }
 
     @PostMapping("/distributore/{idVenditore}/add")
-    public ResponseEntity<String> caricaProdottoDistributore(@PathVariable Long idVenditore, @RequestBody ProdottoDistributore prodotto) {
+    public ResponseEntity<String> caricaProdottoDistributore(@PathVariable Long idVenditore,
+                                                             @RequestBody ProdottoDistributore prodotto) {
         venditoreHandler.caricaProdottoDistributore(
                 prodotto.getNome(),
                 idVenditore,
                 prodotto.getDescrizione(),
                 prodotto.getPrezzo()
         );
-        return ResponseEntity.ok("Prodotto in attesa di verifica da parte del curatore, puoi chiudere questa pagina");
+        return ResponseEntity.ok("Prodotto in attesa di verifica, puoi chiudere questa pagina");
     }
 
-    @PostMapping("/deleteProduct/{id}")
-    public ResponseEntity<String> eliminaProdotto(@PathVariable Long id){
-        venditoreHandler.deleteProdotto(id);
+    @DeleteMapping("{idVenditore}/delete/{idProdotto}")
+    public ResponseEntity<String> eliminaProdotto(@PathVariable Long idVenditore,
+                                                  @PathVariable Long idProdotto) {
+        venditoreHandler.deleteProdotto(idVenditore, idProdotto);
         return ResponseEntity.ok("Prodotto eliminato");
     }
-
-
 
 }
 
