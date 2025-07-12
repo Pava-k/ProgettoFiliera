@@ -1,7 +1,6 @@
-package unicam.progettofiliera.modelsDaImplementare;
+package unicam.progettofiliera.models;
 
 import jakarta.persistence.Entity;
-import unicam.progettofiliera.models.UtenteRegistrato;
 
 @Entity
 public class Curatore extends UtenteRegistrato {

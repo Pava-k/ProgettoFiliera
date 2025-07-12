@@ -8,7 +8,7 @@ import unicam.progettofiliera.models.AccountRequest;
 import unicam.progettofiliera.models.Animatore;
 import unicam.progettofiliera.models.Ruolo;
 import unicam.progettofiliera.modelsDaImplementare.Acquirente;
-import unicam.progettofiliera.modelsDaImplementare.Curatore;
+import unicam.progettofiliera.models.Curatore;
 import unicam.progettofiliera.models.venditori.Distributore;
 import unicam.progettofiliera.models.venditori.Produttore;
 import unicam.progettofiliera.models.venditori.Trasformatore;
