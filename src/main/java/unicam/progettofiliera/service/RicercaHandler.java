@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.EventoRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.models.Evento;
-import unicam.progettofiliera.modelsDaImplementare.Prodotto;
+import unicam.progettofiliera.models.prodotti.Prodotto;
 
 import java.util.List;
 

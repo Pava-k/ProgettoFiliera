@@ -1,7 +1,7 @@
 package unicam.progettofiliera.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import unicam.progettofiliera.modelsDaImplementare.Prodotto;
+import unicam.progettofiliera.models.prodotti.Prodotto;
 
 import java.util.List;
 
