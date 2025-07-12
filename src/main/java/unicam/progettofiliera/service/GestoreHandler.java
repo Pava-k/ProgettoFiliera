@@ -1,5 +1,6 @@
 package unicam.progettofiliera.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.*;
@@ -23,6 +24,7 @@ public class GestoreHandler {
     private final CuratoreRepository curatoreRepository;
     private final AcquirenteRepository acquirenteRepository;
 
+    @Autowired
     public GestoreHandler(AccountRequestRepository accountRequestRepository,
                           AnimatoreRepository animatoreRepository,
                           VenditoreRepository venditoreRepository,
