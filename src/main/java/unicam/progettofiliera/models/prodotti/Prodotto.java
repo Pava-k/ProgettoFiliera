@@ -1,5 +1,6 @@
 package unicam.progettofiliera.models.prodotti;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import unicam.progettofiliera.models.venditori.Venditore;
 
@@ -9,6 +10,7 @@ public abstract class Prodotto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
 
     private String nome;
@@ -19,6 +21,7 @@ public abstract class Prodotto {
 
     @ManyToOne
     @JoinColumn(name = "venditore_id", nullable = false)
+    @JsonIgnore
     private Venditore venditore;
 
     public Prodotto() {}

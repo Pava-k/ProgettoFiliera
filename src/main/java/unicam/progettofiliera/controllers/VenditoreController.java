@@ -3,7 +3,6 @@ package unicam.progettofiliera.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.prodotti.ProdottoDistributore;
 import unicam.progettofiliera.models.prodotti.ProdottoProduttore;
 import unicam.progettofiliera.models.prodotti.ProdottoTrasformatore;

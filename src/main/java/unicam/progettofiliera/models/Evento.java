@@ -8,6 +8,7 @@ public class Evento {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonIgnore
     private Long id;
     private String nome;
     //TODO private Date data;
@@ -18,6 +19,7 @@ public class Evento {
     private int postiDisponibili;
     @ManyToOne
     @JoinColumn(name = "animatore_id", nullable = false)
+    @JsonIgnore
     private Animatore animatore;
 
     public Evento() {}
