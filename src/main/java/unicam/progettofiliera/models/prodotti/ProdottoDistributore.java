@@ -10,4 +10,6 @@ public class ProdottoDistributore extends Prodotto {
     public ProdottoDistributore(String nome, String descrizione, double prezzo) {
         super(nome, descrizione, prezzo);
     }
+
+
 }

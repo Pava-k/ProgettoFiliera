@@ -1,7 +1,7 @@
 package unicam.progettofiliera.models.prodotti;
 
 import jakarta.persistence.*;
-import unicam.progettofiliera.modelsDaImplementare.Venditori.Venditore;
+import unicam.progettofiliera.models.venditori.Venditore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)

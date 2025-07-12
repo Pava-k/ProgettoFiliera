@@ -8,9 +8,9 @@ import unicam.progettofiliera.models.Animatore;
 import unicam.progettofiliera.models.Ruolo;
 import unicam.progettofiliera.modelsDaImplementare.Acquirente;
 import unicam.progettofiliera.modelsDaImplementare.Curatore;
-import unicam.progettofiliera.modelsDaImplementare.Venditori.Distributore;
-import unicam.progettofiliera.modelsDaImplementare.Venditori.Produttore;
-import unicam.progettofiliera.modelsDaImplementare.Venditori.Trasformatore;
+import unicam.progettofiliera.models.venditori.Distributore;
+import unicam.progettofiliera.models.venditori.Produttore;
+import unicam.progettofiliera.models.venditori.Trasformatore;
 
 import java.util.List;
 
