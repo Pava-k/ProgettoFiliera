@@ -6,6 +6,7 @@ import unicam.progettofiliera.infrastructure.EventoRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.models.Evento;
 import unicam.progettofiliera.models.prodotti.Prodotto;
+import unicam.progettofiliera.models.prodotti.StatoProdottoEnum;
 
 import java.util.List;
 
@@ -21,12 +22,11 @@ public class RicercaHandler {
     }
 
     public List<Prodotto> ricercaProdotti() {
-        return prodottoRepository.findAll();
+        return prodottoRepository.findByStatoEnum(StatoProdottoEnum.APPROVATO);
     }
 
     public List<Prodotto> ricercaProdottoByName(String keyword) {
-        return prodottoRepository.findByNomeContainingIgnoreCase(keyword);
-    }
+        return prodottoRepository.findByStatoEnumAndNomeContainingIgnoreCase(StatoProdottoEnum.APPROVATO, keyword);    }
 
     public List<Evento> ricercaEventi() {
         return eventoRepository.findAll();

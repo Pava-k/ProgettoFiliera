@@ -2,10 +2,10 @@ package unicam.progettofiliera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import unicam.progettofiliera.infrastructure.ApprovazioneProdottiRepository;
 import unicam.progettofiliera.infrastructure.CuratoreRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.models.prodotti.Prodotto;
+import unicam.progettofiliera.models.prodotti.StatoProdottoEnum;
 
 import java.util.List;
 
@@ -13,37 +13,35 @@ import java.util.List;
 public class CuratoreHandler {
 
     private final CuratoreRepository curatoreRepository;
-    private final ApprovazioneProdottiRepository appProdRepository;
     private final ProdottoRepository prodottoRepository;
 
     @Autowired
     public CuratoreHandler(CuratoreRepository curatoreRepository,
-                           ApprovazioneProdottiRepository appProdRepository,
                            ProdottoRepository prodottoRepository) {
         this.curatoreRepository = curatoreRepository;
-        this.appProdRepository = appProdRepository;
         this.prodottoRepository = prodottoRepository;
     }
 
     public List<Prodotto> mostraProdotti() {
-        return appProdRepository.findAll();
+        return prodottoRepository.findByStatoEnum(StatoProdottoEnum.INATTESADIAPPROVAZIONE);
     }
 
     public void approvaProdotto(Long idCuratore, Long idProdotto) {
         if (curatoreRepository.existsById(idCuratore)) {
-            Prodotto prodotto = appProdRepository.findById(idProdotto).
+            Prodotto prodotto = prodottoRepository.findById(idProdotto).
                     orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
-            prodotto.getVenditore().addProdotto(prodotto);
+            prodotto.approva();
             prodottoRepository.save(prodotto);
-            appProdRepository.delete(prodotto);
+            prodotto.getVenditore().addProdotto(prodotto);
         } else throw new RuntimeException("Curatore non trovato");
     }
 
-    public void rifiutaProodotto(Long idCuratore, Long idProdotto) {
+    public void rifiutaProdotto(Long idCuratore, Long idProdotto) {
         if (curatoreRepository.existsById(idCuratore)) {
-            Prodotto prodotto = appProdRepository.findById(idProdotto).
+            Prodotto prodotto = prodottoRepository.findById(idProdotto).
                     orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
-            appProdRepository.delete(prodotto);
+            prodotto.rifiuta();
+            prodottoRepository.save(prodotto);
         } else throw new RuntimeException("Curatore non trovato");
     }
 }

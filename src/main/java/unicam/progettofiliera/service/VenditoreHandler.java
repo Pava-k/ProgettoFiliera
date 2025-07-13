@@ -3,9 +3,9 @@ package unicam.progettofiliera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import unicam.progettofiliera.infrastructure.ApprovazioneProdottiRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.infrastructure.VenditoreRepository;
+import unicam.progettofiliera.models.prodotti.Approvato;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.venditori.Distributore;
 import unicam.progettofiliera.models.venditori.Produttore;
@@ -18,17 +18,14 @@ import java.util.List;
 public class VenditoreHandler {
     ProdottoRepository prodottoRepository;
     VenditoreRepository venditoreRepository;
-    ApprovazioneProdottiRepository appProdRepository;
 
     public VenditoreHandler() {}
 
     @Autowired
     public VenditoreHandler(ProdottoRepository prodottoRepository,
-                            VenditoreRepository venditoreRepository,
-                            ApprovazioneProdottiRepository appProdRepository) {
+                            VenditoreRepository venditoreRepository) {
         this.prodottoRepository = prodottoRepository;
         this.venditoreRepository = venditoreRepository;
-        this.appProdRepository = appProdRepository;
     }
 
     public void caricaProdottoProduttore(Long idVenditore, String nome, String descrizione,
@@ -37,7 +34,7 @@ public class VenditoreHandler {
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
         if (venditore instanceof Produttore produttore){
             Prodotto prodotto = produttore.creaProdotto(nome, descrizione, prezzo, processiProduttivi);
-            appProdRepository.save(prodotto);
+            prodottoRepository.save(prodotto);
         } else throw new IllegalArgumentException("il venditore non è un Produttore");
     }
 
@@ -47,7 +44,7 @@ public class VenditoreHandler {
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
         if (venditore instanceof Trasformatore trasformatore){
             Prodotto prodotto = trasformatore.creaProdotto(nome, descrizione, prezzo, processiTraformativi, collaboratori);
-            appProdRepository.save(prodotto);
+            prodottoRepository.save(prodotto);
         } else throw new IllegalArgumentException("il venditore non è un Trasformatore");
     }
 
@@ -56,7 +53,7 @@ public class VenditoreHandler {
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
         if (venditore instanceof Distributore distributore){
             Prodotto prodotto = distributore.creaProdotto(nome, descrizione, prezzo);
-            appProdRepository.save(prodotto);
+            prodottoRepository.save(prodotto);
         } else throw new IllegalArgumentException("il venditore non è un Trasformatore");
     }
 
@@ -65,11 +62,11 @@ public class VenditoreHandler {
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
         Prodotto prodotto = prodottoRepository.findById(idProdotto).
                 orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
-        if(venditore.getProdottiPubblicati().contains(prodotto)){
+        if(venditore.getProdottiPubblicati().contains(prodotto) && prodotto.getStato() instanceof Approvato){
             venditore.getProdottiPubblicati().remove(prodotto);
             prodottoRepository.delete(prodotto);
         } else
-            throw new RuntimeException("Il prodotto non appartiene al venditore selezionato");
+            throw new RuntimeException("Il prodotto non appartiene al venditore selezionato o non è stato ancora approvato.");
     }
 
 }

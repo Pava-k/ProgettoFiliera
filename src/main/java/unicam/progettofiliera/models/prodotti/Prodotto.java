@@ -20,6 +20,15 @@ public abstract class Prodotto {
 
     private double prezzo;
 
+    @Transient
+    @JsonIgnore
+    private StatoProdotto stato = new InAttesaDiApprovazione();
+
+    @Enumerated(EnumType.STRING)
+    @JsonIgnore
+    private StatoProdottoEnum statoEnum = StatoProdottoEnum.INATTESADIAPPROVAZIONE;
+
+
     @ManyToOne
     @JoinColumn(name = "venditore_id", nullable = false)
     @JsonIgnore
@@ -31,6 +40,14 @@ public abstract class Prodotto {
         this.nome = nome;
         this.descrizione = descrizione;
         this.prezzo = prezzo;
+    }
+
+    public void approva(){
+        this.stato.approva(this);
+    }
+
+    public void rifiuta(){
+        this.stato.rifiuta(this);
     }
 
     public void setId(Long id) {
@@ -72,4 +89,21 @@ public abstract class Prodotto {
     public void setVenditore(Venditore venditore) {
         this.venditore = venditore;
     }
+
+    public StatoProdotto getStato() {
+        return stato;
+    }
+
+    public void setStato(StatoProdotto stato) {
+        this.stato = stato;
+    }
+
+    public StatoProdottoEnum getStatoEnum(StatoProdottoEnum statoEnum) {
+        return statoEnum;
+    }
+
+    public void setStatoEnum(StatoProdottoEnum statoEnum) {
+        this.statoEnum = statoEnum;
+    }
+
 }
