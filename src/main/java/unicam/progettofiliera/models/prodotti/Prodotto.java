@@ -25,6 +25,7 @@ public abstract class Prodotto {
     private StatoProdotto stato = new InAttesaDiApprovazione();
 
     @Enumerated(EnumType.STRING)
+    @Column(name = "stato")
     @JsonIgnore
     private StatoProdottoEnum statoEnum = StatoProdottoEnum.INATTESADIAPPROVAZIONE;
 
@@ -42,12 +43,12 @@ public abstract class Prodotto {
         this.prezzo = prezzo;
     }
 
-    public void approva(){
-        this.stato.approva(this);
+    public void approva() {
+        getStato().approva(this);
     }
 
-    public void rifiuta(){
-        this.stato.rifiuta(this);
+    public void rifiuta() {
+        getStato().rifiuta(this);
     }
 
     public void setId(Long id) {
@@ -91,8 +92,13 @@ public abstract class Prodotto {
     }
 
     public StatoProdotto getStato() {
-        return stato;
+        return switch (statoEnum) {
+            case INATTESADIAPPROVAZIONE -> new InAttesaDiApprovazione();
+            case APPROVATO -> new Approvato();
+            case RIFIUTATO -> new Rifiutato();
+        };
     }
+
 
     public void setStato(StatoProdotto stato) {
         this.stato = stato;
