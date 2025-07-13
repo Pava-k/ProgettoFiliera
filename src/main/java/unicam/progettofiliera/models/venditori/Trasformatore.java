@@ -28,7 +28,6 @@ public class Trasformatore extends Venditore {
         ProdottoTrasformatore prodotto =
                 new ProdottoTrasformatore(nome, descrizione, prezzo, processi, collaboratori);
         prodotto.setVenditore(this);
-        this.addProdotto(prodotto);
         return prodotto;
     }
 

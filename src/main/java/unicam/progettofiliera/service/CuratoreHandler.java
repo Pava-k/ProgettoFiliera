@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.ApprovazioneProdottiRepository;
 import unicam.progettofiliera.infrastructure.CuratoreRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
+import unicam.progettofiliera.models.prodotti.Prodotto;
+
+import java.util.List;
 
 @Service
 public class CuratoreHandler {
@@ -22,7 +25,25 @@ public class CuratoreHandler {
         this.prodottoRepository = prodottoRepository;
     }
 
+    public List<Prodotto> mostraProdotti() {
+        return appProdRepository.findAll();
+    }
+
     public void approvaProdotto(Long idCuratore, Long idProdotto) {
-        return; //TODO
+        if (curatoreRepository.existsById(idCuratore)) {
+            Prodotto prodotto = appProdRepository.findById(idProdotto).
+                    orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
+            prodotto.getVenditore().addProdotto(prodotto);
+            prodottoRepository.save(prodotto);
+            appProdRepository.delete(prodotto);
+        } else throw new RuntimeException("Curatore non trovato");
+    }
+
+    public void rifiutaProodotto(Long idCuratore, Long idProdotto) {
+        if (curatoreRepository.existsById(idCuratore)) {
+            Prodotto prodotto = appProdRepository.findById(idProdotto).
+                    orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
+            appProdRepository.delete(prodotto);
+        } else throw new RuntimeException("Curatore non trovato");
     }
 }

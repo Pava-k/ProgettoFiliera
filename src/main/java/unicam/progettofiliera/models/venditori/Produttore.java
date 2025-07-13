@@ -24,7 +24,6 @@ public class Produttore extends Venditore {
     public ProdottoProduttore creaProdotto(String nome, String descrizione, double prezzo, String processi) {
         ProdottoProduttore prodotto = new ProdottoProduttore(nome, descrizione, prezzo, processi);
         prodotto.setVenditore(this);
-        this.addProdotto(prodotto);
         return prodotto;
     }
 
