@@ -5,6 +5,7 @@ import unicam.progettofiliera.models.UtenteRegistrato;
 
 @Entity
 public class Acquirente extends UtenteRegistrato {
+
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private Carrello carrello;
 

@@ -3,37 +3,50 @@ package unicam.progettofiliera.service;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.AcquirenteRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
+import unicam.progettofiliera.models.prodotti.Approvato;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.modelsDaImplementare.Acquirente;
 import unicam.progettofiliera.modelsDaImplementare.Carrello;
+
+import java.util.List;
 
 @Service
 public class CarrelloHandler {
     private final AcquirenteRepository acquirenteRepository;
     private final ProdottoRepository prodottoRepository;
 
-    public CarrelloHandler(AcquirenteRepository acquirenteRepository, ProdottoRepository prodottoRepository) {
+    public CarrelloHandler(AcquirenteRepository acquirenteRepository,
+                           ProdottoRepository prodottoRepository) {
         this.acquirenteRepository = acquirenteRepository;
         this.prodottoRepository = prodottoRepository;
     }
 
-    public void aggiungiProdottoAlCarrello(Long aquirenteId, Long prodottoId) {
-        Acquirente acquirente = acquirenteRepository.findById(aquirenteId)
+    public List<Prodotto> mostraCarrello(Long acquirenteId) {
+        Acquirente acquirente = acquirenteRepository.findById(acquirenteId)
+                .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
+
+        return acquirente.getCarrello().getListaProdotti();
+    }
+
+    public void aggiungiProdottoAlCarrello(Long acquirenteId, Long prodottoId) {
+        Acquirente acquirente = acquirenteRepository.findById(acquirenteId)
                 .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
 
         Prodotto prodotto = prodottoRepository.findById(prodottoId)
                 .orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
 
-        acquirente.getCarrello().aggiungiProdotto(prodotto);
-        acquirenteRepository.save(acquirente);
-    }
-    public void svuotaCarrello(Long acquirenteId) {
-        Acquirente acquirente = acquirenteRepository.findById(acquirenteId)
-                .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
+        if(prodotto.getStato() instanceof Approvato) {
 
-        acquirente.getCarrello().svuota();
-        acquirenteRepository.save(acquirente);
+            if (acquirente.getCarrello().getListaProdotti().contains(prodotto)) {
+                throw new RuntimeException("Il prodotto è già presente nel carrello");
+            }
+
+            acquirente.getCarrello().addProdotto(prodotto);
+            acquirenteRepository.save(acquirente);
+
+        } else throw new RuntimeException("Il proddotto non è approvato");
     }
+
     public void rimuoviProdottoDaCarrello(Long acquirenteId, Long prodottoId) {
         Acquirente acquirente = acquirenteRepository.findById(acquirenteId)
                 .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
@@ -45,9 +58,18 @@ public class CarrelloHandler {
                 .findFirst()
                 .orElseThrow(() -> new RuntimeException("Prodotto non presente nel carrello"));
 
-        carrello.rimuoviProdotto(prodotto);
+        carrello.removeProdotto(prodotto);
         acquirenteRepository.save(acquirente);
     }
+
+    public void svuotaCarrello(Long acquirenteId) {
+        Acquirente acquirente = acquirenteRepository.findById(acquirenteId)
+                .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
+
+        acquirente.getCarrello().svuota();
+        acquirenteRepository.save(acquirente);
+    }
+
     public double calcolaTotaleCarrello(Long idAcquirente) {
         Acquirente acquirente = acquirenteRepository.findById(idAcquirente)
                 .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));

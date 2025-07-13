@@ -8,7 +8,12 @@ import java.util.List;
 @Entity
 public class Carrello {
 
-    @OneToMany
+    @ManyToMany
+    @JoinTable(
+        name = "prodotti_carrello",
+        joinColumns = @JoinColumn(name = "carrello_id"),
+        inverseJoinColumns = @JoinColumn(name = "prodotto_id")
+    )
     List<Prodotto> listaProdotti;
 
     @Id
@@ -23,16 +28,20 @@ public class Carrello {
         return listaProdotti;
     }
 
-    public void aggiungiProdotto(Prodotto prodotto) {
+    public void addProdotto(Prodotto prodotto) {
         this.listaProdotti.add(prodotto);
     }
 
-    public void rimuoviProdotto(Prodotto prodotto) {
+    public void removeProdotto(Prodotto prodotto) {
         this.listaProdotti.remove(prodotto);
     }
 
     public double sommaPrezzo(){
-        return listaProdotti.stream().mapToDouble(Prodotto::getPrezzo).sum();
+        double totale = 0;
+        for(Prodotto p : listaProdotti) {
+            totale += p.getPrezzo();
+        }
+        return totale;
     }
 
     public void svuota() {

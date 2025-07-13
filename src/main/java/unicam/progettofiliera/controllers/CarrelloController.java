@@ -3,10 +3,13 @@ package unicam.progettofiliera.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.service.CarrelloHandler;
 
+import java.util.List;
+
 @RestController
-@RequestMapping("/carello")
+@RequestMapping("/carrello")
 public class CarrelloController {
     private final CarrelloHandler carrelloHandler;
 
@@ -15,7 +18,14 @@ public class CarrelloController {
         this.carrelloHandler = carrelloHandler;
     }
 
-    @PostMapping("/{idAcquirente}/aggiungi/{idProdotto}")
+    @GetMapping("{idAcquirente}")
+    public ResponseEntity<Object> mostraCarrello(@PathVariable Long idAcquirente) {
+        List<Prodotto> prodotti = carrelloHandler.mostraCarrello(idAcquirente);
+        if(prodotti.isEmpty()) return ResponseEntity.ok("Il carrelo è vuoto!");
+        return ResponseEntity.ok(prodotti);
+    }
+
+    @PostMapping("/{idAcquirente}/add/{idProdotto}")
     public ResponseEntity<String> aggiungiProdotto(@PathVariable Long idAcquirente,
                                                    @PathVariable Long idProdotto) {
         carrelloHandler.aggiungiProdottoAlCarrello(idAcquirente, idProdotto);
@@ -34,6 +44,7 @@ public class CarrelloController {
         carrelloHandler.svuotaCarrello(idAcquirente);
         return ResponseEntity.ok("Carrello svuotato");
     }
+
     @GetMapping("/{idAcquirente}/totale")
     public ResponseEntity<Double> sommaPrezzo(@PathVariable Long idAcquirente) {
         double totale = carrelloHandler.calcolaTotaleCarrello(idAcquirente);
