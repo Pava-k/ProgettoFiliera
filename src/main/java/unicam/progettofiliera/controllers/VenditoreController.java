@@ -80,7 +80,5 @@ public class VenditoreController {
         return ResponseEntity.ok("Prodotto eliminato");
     }
 
-    //TODO aggiungere controllo prezzo negativo
-
 }
 

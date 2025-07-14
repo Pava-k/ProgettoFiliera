@@ -20,8 +20,17 @@ public class Produttore extends Venditore {
         return null;
     }
 
-    //Overload del factory method per aggiungere il parametro processi
+    /**
+     * Overdload del factory method per permettere al produttore
+     * di aggiungere il parametro processi
+     * @param nome
+     * @param descrizione
+     * @param prezzo
+     * @param processi
+     * @return
+     */
     public ProdottoProduttore creaProdotto(String nome, String descrizione, double prezzo, String processi) {
+
         ProdottoProduttore prodotto = new ProdottoProduttore(nome, descrizione, prezzo, processi);
         prodotto.setVenditore(this);
         return prodotto;

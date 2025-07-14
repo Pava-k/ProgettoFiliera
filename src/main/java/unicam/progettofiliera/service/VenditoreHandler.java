@@ -22,13 +22,16 @@ import java.util.List;
 public class VenditoreHandler {
 
     private final ProdottoRepository prodottoRepository;
+
     private final VenditoreRepository venditoreRepository;
+
     private final AcquirenteRepository acquirenteRepository;
 
     @Autowired
     public VenditoreHandler(ProdottoRepository prodottoRepository,
                             VenditoreRepository venditoreRepository,
                             AcquirenteRepository acquirenteRepository) {
+
         this.prodottoRepository = prodottoRepository;
         this.venditoreRepository = venditoreRepository;
         this.acquirenteRepository = acquirenteRepository;
@@ -36,8 +39,10 @@ public class VenditoreHandler {
 
     public void caricaProdottoProduttore(Long idVenditore, String nome, String descrizione,
                                          double prezzo, String processiProduttivi) {
+
         Venditore venditore = venditoreRepository.findById(idVenditore).
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
+
         if (venditore instanceof Produttore produttore){
             Prodotto prodotto = produttore.creaProdotto(nome, descrizione, prezzo, processiProduttivi);
             prodottoRepository.save(prodotto);
@@ -46,8 +51,10 @@ public class VenditoreHandler {
 
     public void caricaProdottoTrasformatore(Long idVenditore, String nome, String descrizione, double prezzo,
                                             String processiTraformativi, List<Produttore> collaboratori) {
+
         Venditore venditore = venditoreRepository.findById(idVenditore).
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
+
         if (venditore instanceof Trasformatore trasformatore){
             Prodotto prodotto = trasformatore.creaProdotto(nome, descrizione, prezzo, processiTraformativi, collaboratori);
             prodottoRepository.save(prodotto);
@@ -55,12 +62,14 @@ public class VenditoreHandler {
     }
 
     public void caricaProdottoDistributore(String nome, Long idVenditore, String descrizione, double prezzo){
+
         Venditore venditore = venditoreRepository.findById(idVenditore).
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
+
         if (venditore instanceof Distributore distributore){
             Prodotto prodotto = distributore.creaProdotto(nome, descrizione, prezzo);
             prodottoRepository.save(prodotto);
-        } else throw new IllegalArgumentException("il venditore non è un Trasformatore");
+        } else throw new IllegalArgumentException("il venditore non è un Distributore");
     }
 
     public void caricaPacchetto(Long idDistributore, String nome, String descrizione,
@@ -73,10 +82,16 @@ public class VenditoreHandler {
 
         if (venditore instanceof Distributore distributore){
             Pacchetto pacchetto = distributore.creaPacchetto(nome, descrizione, prezzo, prodotti);
-        venditoreRepository.save(venditore);
+        venditoreRepository.save(venditore); //aggiorna anche la persistenza dei pacchetti
         } else throw new IllegalArgumentException("il venditore non è un distributore");
     }
 
+    /**
+     * rimuove attraverso l'id fornito il prodotto corrispondente dal marketplace
+     * e dal carrello di ogni acquirente che lo possiede
+     * @param idVenditore
+     * @param idProdotto
+     */
     public void deleteProdotto(Long idVenditore, Long idProdotto) {
         Venditore venditore = venditoreRepository.findById(idVenditore).
                 orElseThrow(() -> new RuntimeException("Venditore non trovato"));
@@ -98,6 +113,10 @@ public class VenditoreHandler {
             throw new RuntimeException("Il prodotto non appartiene al venditore selezionato o non è state ancora approvato.");
     }
 
+    /**
+     * rimuove il prodotto dato in input da tutti i carrelli degli acquirenti
+     * @param prodotto
+     */
     private void removeProdottoDaiCarrelli(Prodotto prodotto) {
         List<Acquirente> listaAcquirenti = acquirenteRepository.findAll();
         for (Acquirente acquirente : listaAcquirenti) {
@@ -109,6 +128,11 @@ public class VenditoreHandler {
         }
     }
 
+    /**
+     * rimuove  dal marketplace ogni pacchetto che contiene il prodotto dato in input
+     * @param distributore
+     * @param prodotto
+     */
     private void removePacchettiContaining(Distributore distributore, Prodotto prodotto) {
 
         List<Pacchetto> pacchettiDaRimuovere = distributore.getPacchettiCaricati().stream()

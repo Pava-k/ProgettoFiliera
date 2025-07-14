@@ -17,14 +17,20 @@ import java.util.List;
 
 @Service
 public class CarrelloHandler {
+
     private final AcquirenteRepository acquirenteRepository;
+
     private final ProdottoRepository prodottoRepository;
+
     private final VenditoreRepository venditoreRepository;
+
     private final PacchettoRepository pacchettoRepository;
 
     public CarrelloHandler(AcquirenteRepository acquirenteRepository,
                            ProdottoRepository prodottoRepository,
-                           VenditoreRepository venditoreRepository, PacchettoRepository pacchettoRepository) {
+                           VenditoreRepository venditoreRepository,
+                           PacchettoRepository pacchettoRepository) {
+
         this.acquirenteRepository = acquirenteRepository;
         this.prodottoRepository = prodottoRepository;
         this.venditoreRepository = venditoreRepository;
@@ -57,6 +63,7 @@ public class CarrelloHandler {
         } else throw new RuntimeException("Il proddotto non è approvato");
     }
 
+
     public void rimuoviProdottoDaCarrello(Long acquirenteId, Long prodottoId) {
         Acquirente acquirente = acquirenteRepository.findById(acquirenteId)
                 .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
@@ -86,6 +93,18 @@ public class CarrelloHandler {
         return acquirente.getCarrello().sommaPrezzo();
     }
 
+    /**
+     * Questo metodo permette di aggiungere al carrello
+     * un pacchetto tramite l'inserimento dell'id corrispondente
+     * <p>
+     * I prodotti presenti all'interno del pacchetto vengono aggiunti
+     * al carrello dell'acquirente come prodotti singoli.
+     * Se l'acquirente possiede già uno o più prodotti del pacchetto
+     * vengono aggiunti tutti gli altri tranne quello
+     * </p>
+     * @param idAcquirente
+     * @param pacchettoId
+     */
     public void addPacchettoAlCarrello(Long idAcquirente, Long pacchettoId) {
         Acquirente acquirente = acquirenteRepository.findById(idAcquirente)
                 .orElseThrow(() -> new RuntimeException("Acquirente non trovato"));
@@ -104,5 +123,6 @@ public class CarrelloHandler {
             acquirenteRepository.save(acquirente);
         } else
             throw new RuntimeException("Il pacchetto è gia presente nel carrello");
+        //l'eccezione viene lanciata solo se l'acquirente possiede già tutti i prodotti del pacchetto
     }
 }

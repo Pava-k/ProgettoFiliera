@@ -22,7 +22,17 @@ public class Trasformatore extends Venditore {
         return null;
     }
 
-    //Overload del factoryMethod per aggiungere i parametri di prodottoTrasformatore
+    /**
+     * Overdload del factory method per permettere al trasformatore
+     * di aggiungere il parametro processi e collaboratori
+     *
+     * @param nome
+     * @param descrizione
+     * @param prezzo
+     * @param processi
+     * @param collaboratori
+     *
+     */
     public ProdottoTrasformatore creaProdotto(String nome, String descrizione, double prezzo,
                                               String processi, List<Produttore> collaboratori) {
         ProdottoTrasformatore prodotto =

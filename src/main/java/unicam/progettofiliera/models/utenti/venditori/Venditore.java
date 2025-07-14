@@ -30,11 +30,17 @@ public abstract class Venditore extends UtenteRegistrato {
     }
 
     /**
-     * il FACTORY METHOD permette alle sottoclassi
-     * di creare il prodotto
+     * Crea un nuovo prodotto specifico del tipo di venditore.
+     * <p>
+     * Questo è un factory method che ogni sottoclasse di venditore
+     * deve implementare per restituire una specifica istanza di
+     * Prodotto (ProdottoProduttore, ProdottoTrasformatore, ProdottDistributore)
+     *</p>
+     *
      * @param nome
      * @param descrizione
      * @param prezzo
+     * @return un nuovo oggetto Prodotto associato a questo venditore
      */
     public abstract Prodotto creaProdotto(String nome, String descrizione, double prezzo);
 

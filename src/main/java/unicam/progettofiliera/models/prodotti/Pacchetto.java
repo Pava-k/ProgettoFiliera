@@ -7,6 +7,7 @@ import unicam.progettofiliera.models.utenti.venditori.Distributore;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Entity
 public class Pacchetto {
 
@@ -32,6 +33,7 @@ public class Pacchetto {
     public Pacchetto() {}
 
     public Pacchetto(String nome, String descrizione, double sconto) {
+
         this.nome = nome;
         this.descrizione = descrizione;
         this.sconto = sconto;
