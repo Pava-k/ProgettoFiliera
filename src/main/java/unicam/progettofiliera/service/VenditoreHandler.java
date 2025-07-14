@@ -3,6 +3,7 @@ package unicam.progettofiliera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import unicam.progettofiliera.infrastructure.AcquirenteRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.infrastructure.VenditoreRepository;
 import unicam.progettofiliera.models.prodotti.Approvato;
@@ -11,6 +12,8 @@ import unicam.progettofiliera.models.venditori.Distributore;
 import unicam.progettofiliera.models.venditori.Produttore;
 import unicam.progettofiliera.models.venditori.Trasformatore;
 import unicam.progettofiliera.models.venditori.Venditore;
+import unicam.progettofiliera.modelsDaImplementare.Acquirente;
+import unicam.progettofiliera.modelsDaImplementare.Carrello;
 
 import java.util.List;
 
@@ -18,14 +21,17 @@ import java.util.List;
 public class VenditoreHandler {
     ProdottoRepository prodottoRepository;
     VenditoreRepository venditoreRepository;
+    AcquirenteRepository acquirenteRepository;
 
     public VenditoreHandler() {}
 
     @Autowired
     public VenditoreHandler(ProdottoRepository prodottoRepository,
-                            VenditoreRepository venditoreRepository) {
+                            VenditoreRepository venditoreRepository,
+                            AcquirenteRepository acquirenteRepository) {
         this.prodottoRepository = prodottoRepository;
         this.venditoreRepository = venditoreRepository;
+        this.acquirenteRepository = acquirenteRepository;
     }
 
     public void caricaProdottoProduttore(Long idVenditore, String nome, String descrizione,
@@ -63,10 +69,26 @@ public class VenditoreHandler {
         Prodotto prodotto = prodottoRepository.findById(idProdotto).
                 orElseThrow(() -> new RuntimeException("Prodotto non trovato"));
         if(venditore.getProdottiPubblicati().contains(prodotto) && prodotto.getStato() instanceof Approvato){
+
+            // Rimuovi il prodotto da tutti i carrelli degli acquirenti
+            removeProdottoDaiCarrelli(prodotto);
+            // Rimuove il prodotto dalla lista dei prodotti del venditore e dalla repository
             venditore.getProdottiPubblicati().remove(prodotto);
             prodottoRepository.delete(prodotto);
+
         } else
             throw new RuntimeException("Il prodotto non appartiene al venditore selezionato o non è stato ancora approvato.");
+    }
+
+    public void removeProdottoDaiCarrelli(Prodotto prodotto) {
+        List<Acquirente> listaAcquirenti = acquirenteRepository.findAll();
+        for (Acquirente acquirente : listaAcquirenti) {
+            Carrello carrello = acquirente.getCarrello();
+            if (carrello.getListaProdotti().contains(prodotto)) {
+                carrello.removeProdotto(prodotto);
+                acquirenteRepository.save(acquirente); // salva il carrello aggiornato
+            }
+        }
     }
 
 }
