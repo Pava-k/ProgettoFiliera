@@ -25,7 +25,7 @@ public class CarrelloController {
         return ResponseEntity.ok(prodotti);
     }
 
-    @PostMapping("/{idAcquirente}/add/{idProdotto}")
+    @PostMapping("/{idAcquirente}/addProdotto/{idProdotto}")
     public ResponseEntity<String> aggiungiProdotto(@PathVariable Long idAcquirente,
                                                    @PathVariable Long idProdotto) {
         carrelloHandler.aggiungiProdottoAlCarrello(idAcquirente, idProdotto);
@@ -50,4 +50,12 @@ public class CarrelloController {
         double totale = carrelloHandler.calcolaTotaleCarrello(idAcquirente);
         return ResponseEntity.ok("totale carrello: "+totale+ "€");
     }
+
+    @PostMapping("/{idAcquirente}/addPacchetto/{idPacchetto}")
+    public ResponseEntity<Object> aggiungiPacchetto(@PathVariable Long idAcquirente,
+                                                    @PathVariable Long idPacchetto) {
+        carrelloHandler.addPacchettoAlCarrello(idAcquirente, idPacchetto);
+        return ResponseEntity.ok("Pacchetto aggiunto al carrello");
+    }
+
 }

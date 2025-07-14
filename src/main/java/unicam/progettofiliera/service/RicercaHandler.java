@@ -4,21 +4,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.EventoRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
+import unicam.progettofiliera.infrastructure.VenditoreRepository;
 import unicam.progettofiliera.models.eventi.Evento;
+import unicam.progettofiliera.models.prodotti.Pacchetto;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.prodotti.state.StatoProdottoEnum;
+import unicam.progettofiliera.models.utenti.venditori.Distributore;
+import unicam.progettofiliera.models.utenti.venditori.Venditore;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class RicercaHandler {
+    private final VenditoreRepository venditoreRepository;
     EventoRepository eventoRepository;
     ProdottoRepository prodottoRepository;
 
     @Autowired
-    public RicercaHandler(EventoRepository eventoRepository, ProdottoRepository prodottoRepository) {
+    public RicercaHandler(EventoRepository eventoRepository, ProdottoRepository prodottoRepository, VenditoreRepository venditoreRepository) {
         this.eventoRepository = eventoRepository;
         this.prodottoRepository = prodottoRepository;
+        this.venditoreRepository = venditoreRepository;
     }
 
     public List<Prodotto> ricercaProdotti() {
@@ -36,4 +43,14 @@ public class RicercaHandler {
         return eventoRepository.findByNomeContainingIgnoreCase(keyword);
     }
 
+    public List<Pacchetto> ricercaPacchetti() {
+        List<Pacchetto> pacchetti = new ArrayList<>();
+        for(Venditore venditore : venditoreRepository.findAll()) {
+            if(venditore instanceof Distributore distributore) {
+                if(!distributore.getPacchettiCaricati().isEmpty()){
+                    pacchetti.addAll(distributore.getPacchettiCaricati());
+                }
+            }
+        } return pacchetti;
+    }
 }

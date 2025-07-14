@@ -25,6 +25,8 @@ public class Pacchetto {
     private double sconto;
 
     @ManyToOne
+    @JoinColumn(name = "distributore_id")
+    @JsonIgnore
     private Distributore creatore;
 
     public Pacchetto() {}

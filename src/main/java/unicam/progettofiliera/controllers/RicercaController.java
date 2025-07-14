@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import unicam.progettofiliera.models.eventi.Evento;
+import unicam.progettofiliera.models.prodotti.Pacchetto;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.service.RicercaHandler;
 
@@ -54,4 +55,13 @@ public class RicercaController {
             return ResponseEntity.ok(eventi);
         return ResponseEntity.ok("Evento non trovato");
     }
+
+    @GetMapping("/pacchetti")
+    public ResponseEntity<Object> ricercaPacchetti() {
+        List<Pacchetto> pacchetti = ricercaHandler.ricercaPacchetti();
+        if(!pacchetti.isEmpty())
+            return ResponseEntity.ok(pacchetti);
+        return ResponseEntity.ok("Il marketplace non contiene pacchetti");
+    }
+
 }

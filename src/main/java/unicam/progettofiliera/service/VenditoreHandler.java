@@ -16,7 +16,6 @@ import unicam.progettofiliera.models.utenti.venditori.Produttore;
 import unicam.progettofiliera.models.utenti.venditori.Trasformatore;
 import unicam.progettofiliera.models.utenti.venditori.Venditore;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -112,16 +111,13 @@ public class VenditoreHandler {
 
     private void removePacchettiContaining(Distributore distributore, Prodotto prodotto) {
 
-        List<Pacchetto> pacchettiDaRimuovere = new ArrayList<>();
+        List<Pacchetto> pacchettiDaRimuovere = distributore.getPacchettiCaricati().stream()
+                .filter(pacchetto -> pacchetto.getProdotti().contains(prodotto))
+                .toList();
 
-        for (Pacchetto pacchetto : distributore.getPacchettiCaricati()) {
-            if(pacchetto.getProdotti().contains(prodotto))
-            pacchettiDaRimuovere.add(pacchetto);
-        }
-        // rimuove e aggiorna lo stato dei distributori
-        if (!pacchettiDaRimuovere.isEmpty()) {
-            distributore.getPacchettiCaricati().removeAll(pacchettiDaRimuovere);
-            venditoreRepository.save(distributore);
-        }
+        // rimuove il pacchetto dalla lista del distributore
+        distributore.getPacchettiCaricati().removeAll(pacchettiDaRimuovere);
+
+        venditoreRepository.save(distributore);
     }
 }
