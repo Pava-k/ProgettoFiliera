@@ -14,14 +14,16 @@ public class AnimatoreHandler {
     private final AnimatoreRepository animatoreRepository;
 
     @Autowired
-    public AnimatoreHandler(EventoRepository eventoRepository, AnimatoreRepository animeRepository) {
+    public AnimatoreHandler(EventoRepository eventoRepository, AnimatoreRepository animatoreRepository) {
         this.eventoRepository = eventoRepository;
-        this.animatoreRepository = animeRepository;
+        this.animatoreRepository = animatoreRepository;
     }
 
-    public void caricaEvento(Long animatoreId, Evento nuovoEvento) {
+    public void caricaEvento(Long animatoreId, String nome, String luogo, String descrizione, int maxP) {
         Animatore animatore = animatoreRepository.findById(animatoreId).
                 orElseThrow(() -> new RuntimeException("Animatore non trovato"));
+
+        Evento nuovoEvento = animatore.creaEvento(nome, luogo, descrizione, maxP);
         nuovoEvento.setAnimatore(animatore);
         animatore.getEventiPubblicati().add(nuovoEvento);
         eventoRepository.save(nuovoEvento);

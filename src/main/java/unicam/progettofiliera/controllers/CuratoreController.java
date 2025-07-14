@@ -12,7 +12,7 @@ import java.util.List;
 @RequestMapping("/curatore")
 public class CuratoreController {
 
-    private CuratoreHandler curatoreHandler;
+    private final CuratoreHandler curatoreHandler;
 
     @Autowired
     public CuratoreController(CuratoreHandler curatoreHandler) {

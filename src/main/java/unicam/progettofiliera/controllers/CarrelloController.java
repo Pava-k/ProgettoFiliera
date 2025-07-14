@@ -46,8 +46,8 @@ public class CarrelloController {
     }
 
     @GetMapping("/{idAcquirente}/totale")
-    public ResponseEntity<Double> sommaPrezzo(@PathVariable Long idAcquirente) {
+    public ResponseEntity<Object> sommaPrezzo(@PathVariable Long idAcquirente) {
         double totale = carrelloHandler.calcolaTotaleCarrello(idAcquirente);
-        return ResponseEntity.ok(totale);
+        return ResponseEntity.ok("totale carrello: "+totale+ "€");
     }
 }

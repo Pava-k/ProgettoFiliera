@@ -16,7 +16,6 @@ public class Evento {
     private String luogo;
     private String descrizione;
     private int maxPartecipanti;
-    @JsonIgnore
     private int postiDisponibili;
     @ManyToOne
     @JoinColumn(name = "animatore_id", nullable = false)

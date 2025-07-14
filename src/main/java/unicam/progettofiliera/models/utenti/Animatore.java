@@ -24,4 +24,8 @@ public class Animatore extends UtenteRegistrato {
     public List<Evento> getEventiPubblicati() {
         return eventiPubblicati;
     }
+
+    public Evento creaEvento(String nome,String luogo,String descrizione,int maxP){
+        return new Evento(nome,luogo,descrizione,maxP);
+    }
 }

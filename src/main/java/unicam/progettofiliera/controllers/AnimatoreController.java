@@ -20,7 +20,7 @@ public class AnimatoreController {
     @PostMapping("/{idAnimatore}/add")
     public ResponseEntity<String> pubblicaEvento(@PathVariable Long idAnimatore,
                                                  @RequestBody Evento evento){
-        animatoreHandler.caricaEvento(idAnimatore,evento);
+        animatoreHandler.caricaEvento(idAnimatore, evento.getNome(),evento.getLuogo(), evento.getDescrizione(), evento.getMaxPartecipanti());
         return ResponseEntity.ok("Evento aggiunto");
     }
     @DeleteMapping("/{idAnimatore}/delete/{idEvento}")

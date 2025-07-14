@@ -2,7 +2,6 @@ package unicam.progettofiliera.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.view.AbstractCachingViewResolver;
 import unicam.progettofiliera.infrastructure.AcquirenteRepository;
 import unicam.progettofiliera.infrastructure.EventoRepository;
 import unicam.progettofiliera.models.eventi.Evento;
@@ -10,7 +9,6 @@ import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.utenti.acquirenti.Acquirente;
 import unicam.progettofiliera.models.utenti.acquirenti.Carrello;
 
-import java.util.List;
 
 @Service
 public class AcquirenteHandler {
@@ -34,22 +32,25 @@ public class AcquirenteHandler {
 
         StringBuilder prodotti = new StringBuilder();
 
-        for (Prodotto p : carrello.getListaProdotti()) {
-            prodotti.append("- ").append(p.getNome()).append(" (€").append(p.getPrezzo()).append(")\n");
-        }
+        if (!carrello.getListaProdotti().isEmpty()) {
+            for (Prodotto p : carrello.getListaProdotti()) {
+                prodotti.append("- ").append(p.getNome()).append(" (€").append(p.getPrezzo()).append(")\n");
+            }
 
-        String ricevuta = """
-            👤 Acquirente: %s
-            🛒 Prodotti: %s
-            💰 Totale: €%.2f
-            """.formatted(
+            String ricevuta = """
+                    👤 Acquirente: %s
+                    🛒 Prodotti: %s
+                    💰 Totale: €%.2f
+                    """.formatted(
                     acquirente.getNome(),
                     prodotti.toString().trim(),
                     acquirente.getCarrello().sommaPrezzo()
             );
+            carrello.svuota();
+            acquirenteRepository.save(acquirente);
+            return ricevuta;
+        } throw new RuntimeException("il carrello è vuoto");
 
-        carrello.svuota();
-        return ricevuta;
     }
 
     public String prenotaEvento(Long eventoId, int partecipanti){
@@ -57,16 +58,13 @@ public class AcquirenteHandler {
         Evento evento = eventoRepository.findById(eventoId)
                 .orElseThrow(() -> new RuntimeException("evento non trovato"));
 
-        if(evento.getPostiDisponibili()>0 && evento.getPostiDisponibili()-partecipanti > 0) {
-            evento.setMaxPartecipanti(evento.getPostiDisponibili() - partecipanti);
+        if(evento.getPostiDisponibili()>0 && evento.getPostiDisponibili()-partecipanti >= 0) {
+            evento.setPostiDisponibili(evento.getPostiDisponibili() - partecipanti);
             eventoRepository.save(evento);
             return evento.getNome();
             } throw new  IllegalArgumentException("Posti disponibili non sufficienti");
 
         }
-
-
-
 
 
 }
