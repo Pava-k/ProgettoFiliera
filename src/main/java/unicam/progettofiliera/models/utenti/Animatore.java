@@ -26,6 +26,8 @@ public class Animatore extends UtenteRegistrato {
     }
 
     public Evento creaEvento(String nome,String luogo,String descrizione,int maxP){
-        return new Evento(nome,luogo,descrizione,maxP);
+        if (!(maxP<=0))
+            return new Evento(nome,luogo,descrizione,maxP);
+        throw new IllegalArgumentException("il numero massimo di partecipanti deve esser maggiore di 0");
     }
 }
