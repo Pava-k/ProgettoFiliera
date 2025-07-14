@@ -30,6 +30,7 @@ public class Evento {
         this.luogo = luogo;
         this.descrizione = descrizione;
         this.maxPartecipanti = maxP;
+        this.postiDisponibili = maxP;
     }
 
     public Long getId() {
