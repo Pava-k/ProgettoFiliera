@@ -1,7 +1,7 @@
 package unicam.progettofiliera.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import unicam.progettofiliera.models.Evento;
+import unicam.progettofiliera.models.eventi.Evento;
 
 import java.util.List;
 

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.CuratoreRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.models.prodotti.Prodotto;
-import unicam.progettofiliera.models.prodotti.StatoProdottoEnum;
+import unicam.progettofiliera.models.prodotti.state.StatoProdottoEnum;
 
 import java.util.List;
 

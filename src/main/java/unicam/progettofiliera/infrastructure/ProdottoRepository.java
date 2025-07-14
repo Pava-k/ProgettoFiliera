@@ -2,8 +2,7 @@ package unicam.progettofiliera.infrastructure;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import unicam.progettofiliera.models.prodotti.Prodotto;
-import unicam.progettofiliera.models.prodotti.StatoProdotto;
-import unicam.progettofiliera.models.prodotti.StatoProdottoEnum;
+import unicam.progettofiliera.models.prodotti.state.StatoProdottoEnum;
 
 import java.util.List;
 

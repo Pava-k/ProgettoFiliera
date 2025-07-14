@@ -4,7 +4,7 @@ package unicam.progettofiliera.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import unicam.progettofiliera.models.Evento;
+import unicam.progettofiliera.models.eventi.Evento;
 import unicam.progettofiliera.service.AnimatoreHandler;
 
 @RestController

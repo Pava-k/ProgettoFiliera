@@ -1,13 +1,15 @@
-package unicam.progettofiliera.models;
+package unicam.progettofiliera.models.utenti;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import unicam.progettofiliera.models.eventi.Evento;
+import unicam.progettofiliera.models.utenti.registrazione.UtenteRegistrato;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Animatore extends UtenteRegistrato{
+public class Animatore extends UtenteRegistrato {
 
     @JsonIgnore
     @OneToMany(mappedBy = "animatore", cascade = CascadeType.ALL, orphanRemoval = true)

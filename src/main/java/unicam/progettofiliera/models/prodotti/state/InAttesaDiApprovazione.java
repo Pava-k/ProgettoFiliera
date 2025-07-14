@@ -1,5 +1,7 @@
-package unicam.progettofiliera.models.prodotti;
+package unicam.progettofiliera.models.prodotti.state;
 
+
+import unicam.progettofiliera.models.prodotti.Prodotto;
 
 public class InAttesaDiApprovazione implements StatoProdotto{
 

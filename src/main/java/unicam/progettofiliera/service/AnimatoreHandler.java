@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.AnimatoreRepository;
 import unicam.progettofiliera.infrastructure.EventoRepository;
-import unicam.progettofiliera.models.Animatore;
-import unicam.progettofiliera.models.Evento;
+import unicam.progettofiliera.models.utenti.Animatore;
+import unicam.progettofiliera.models.eventi.Evento;
 
 @Service
 public class AnimatoreHandler {

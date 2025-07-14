@@ -1,7 +1,7 @@
-package unicam.progettofiliera.modelsDaImplementare;
+package unicam.progettofiliera.models.utenti.acquirenti;
 
 import jakarta.persistence.*;
-import unicam.progettofiliera.models.UtenteRegistrato;
+import unicam.progettofiliera.models.utenti.registrazione.UtenteRegistrato;
 
 @Entity
 public class Acquirente extends UtenteRegistrato {

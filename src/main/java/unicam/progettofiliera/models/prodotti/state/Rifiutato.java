@@ -1,4 +1,6 @@
-package unicam.progettofiliera.models.prodotti;
+package unicam.progettofiliera.models.prodotti.state;
+
+import unicam.progettofiliera.models.prodotti.Prodotto;
 
 public class Rifiutato implements StatoProdotto{
 
@@ -12,7 +14,7 @@ public class Rifiutato implements StatoProdotto{
 
     @Override
     public void rifiuta(Prodotto prodotto) {
-        throw new IllegalStateException("Il prodotto è già stato rifiutato.");
+        throw new IllegalStateException("Il prodotto è già state rifiutato.");
 
     }
 }

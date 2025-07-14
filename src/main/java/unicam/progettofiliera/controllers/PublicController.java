@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import unicam.progettofiliera.models.AccountRequest;
+import unicam.progettofiliera.models.utenti.registrazione.AccountRequest;
 import unicam.progettofiliera.service.RegistrazioneHandler;
 
 /**

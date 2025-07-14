@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import unicam.progettofiliera.models.Evento;
+import unicam.progettofiliera.models.eventi.Evento;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.service.RicercaHandler;
 

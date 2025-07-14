@@ -4,9 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.EventoRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
-import unicam.progettofiliera.models.Evento;
+import unicam.progettofiliera.models.eventi.Evento;
 import unicam.progettofiliera.models.prodotti.Prodotto;
-import unicam.progettofiliera.models.prodotti.StatoProdottoEnum;
+import unicam.progettofiliera.models.prodotti.state.StatoProdottoEnum;
 
 import java.util.List;
 

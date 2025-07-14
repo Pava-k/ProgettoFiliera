@@ -4,14 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.*;
-import unicam.progettofiliera.models.AccountRequest;
-import unicam.progettofiliera.models.Animatore;
-import unicam.progettofiliera.models.Ruolo;
-import unicam.progettofiliera.modelsDaImplementare.Acquirente;
-import unicam.progettofiliera.models.Curatore;
-import unicam.progettofiliera.models.venditori.Distributore;
-import unicam.progettofiliera.models.venditori.Produttore;
-import unicam.progettofiliera.models.venditori.Trasformatore;
+import unicam.progettofiliera.models.utenti.registrazione.AccountRequest;
+import unicam.progettofiliera.models.utenti.Animatore;
+import unicam.progettofiliera.models.utenti.registrazione.Ruolo;
+import unicam.progettofiliera.models.utenti.acquirenti.Acquirente;
+import unicam.progettofiliera.models.utenti.Curatore;
+import unicam.progettofiliera.models.utenti.venditori.Distributore;
+import unicam.progettofiliera.models.utenti.venditori.Produttore;
+import unicam.progettofiliera.models.utenti.venditori.Trasformatore;
 
 import java.util.List;
 

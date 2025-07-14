@@ -3,10 +3,10 @@ package unicam.progettofiliera.service;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.AcquirenteRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
-import unicam.progettofiliera.models.prodotti.Approvato;
+import unicam.progettofiliera.models.prodotti.state.Approvato;
 import unicam.progettofiliera.models.prodotti.Prodotto;
-import unicam.progettofiliera.modelsDaImplementare.Acquirente;
-import unicam.progettofiliera.modelsDaImplementare.Carrello;
+import unicam.progettofiliera.models.utenti.acquirenti.Acquirente;
+import unicam.progettofiliera.models.utenti.acquirenti.Carrello;
 
 import java.util.List;
 

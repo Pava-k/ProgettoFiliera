@@ -1,4 +1,4 @@
-package unicam.progettofiliera.modelsDaImplementare;
+package unicam.progettofiliera.models.utenti.acquirenti;
 
 import jakarta.persistence.*;
 import unicam.progettofiliera.models.prodotti.Prodotto;

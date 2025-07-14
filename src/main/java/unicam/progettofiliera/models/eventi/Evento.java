@@ -1,7 +1,8 @@
-package unicam.progettofiliera.models;
+package unicam.progettofiliera.models.eventi;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import unicam.progettofiliera.models.utenti.Animatore;
 
 @Entity
 public class Evento {

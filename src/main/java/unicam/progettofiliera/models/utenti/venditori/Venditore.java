@@ -1,12 +1,11 @@
-package unicam.progettofiliera.models.venditori;
+package unicam.progettofiliera.models.utenti.venditori;
 
 import jakarta.persistence.*;
-import unicam.progettofiliera.models.UtenteRegistrato;
+import unicam.progettofiliera.models.utenti.registrazione.UtenteRegistrato;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

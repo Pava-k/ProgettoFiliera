@@ -3,7 +3,7 @@ package unicam.progettofiliera.models.prodotti;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
-import unicam.progettofiliera.models.venditori.Produttore;
+import unicam.progettofiliera.models.utenti.venditori.Produttore;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,6 @@
-package unicam.progettofiliera.models.prodotti;
+package unicam.progettofiliera.models.prodotti.state;
+
+import unicam.progettofiliera.models.prodotti.Prodotto;
 
 public class Approvato implements StatoProdotto{
 
@@ -6,7 +8,7 @@ public class Approvato implements StatoProdotto{
 
     @Override
     public void approva(Prodotto prodotto) {
-        throw new IllegalStateException("Il prodotto è già stato approvato.");
+        throw new IllegalStateException("Il prodotto è già state approvato.");
     }
 
     @Override

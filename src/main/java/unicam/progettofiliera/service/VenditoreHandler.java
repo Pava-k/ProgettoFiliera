@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.AcquirenteRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.infrastructure.VenditoreRepository;
-import unicam.progettofiliera.models.prodotti.Approvato;
+import unicam.progettofiliera.models.prodotti.state.Approvato;
 import unicam.progettofiliera.models.prodotti.Prodotto;
-import unicam.progettofiliera.models.venditori.Distributore;
-import unicam.progettofiliera.models.venditori.Produttore;
-import unicam.progettofiliera.models.venditori.Trasformatore;
-import unicam.progettofiliera.models.venditori.Venditore;
-import unicam.progettofiliera.modelsDaImplementare.Acquirente;
-import unicam.progettofiliera.modelsDaImplementare.Carrello;
+import unicam.progettofiliera.models.utenti.venditori.Distributore;
+import unicam.progettofiliera.models.utenti.venditori.Produttore;
+import unicam.progettofiliera.models.utenti.venditori.Trasformatore;
+import unicam.progettofiliera.models.utenti.venditori.Venditore;
+import unicam.progettofiliera.models.utenti.acquirenti.Acquirente;
+import unicam.progettofiliera.models.utenti.acquirenti.Carrello;
 
 import java.util.List;
 
@@ -77,7 +77,7 @@ public class VenditoreHandler {
             prodottoRepository.delete(prodotto);
 
         } else
-            throw new RuntimeException("Il prodotto non appartiene al venditore selezionato o non è stato ancora approvato.");
+            throw new RuntimeException("Il prodotto non appartiene al venditore selezionato o non è state ancora approvato.");
     }
 
     public void removeProdottoDaiCarrelli(Prodotto prodotto) {

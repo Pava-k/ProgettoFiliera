@@ -3,7 +3,7 @@ package unicam.progettofiliera.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.AccountRequestRepository;
-import unicam.progettofiliera.models.AccountRequest;
+import unicam.progettofiliera.models.utenti.registrazione.AccountRequest;
 
 @Service
 public class RegistrazioneHandler {

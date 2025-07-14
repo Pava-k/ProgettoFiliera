@@ -2,7 +2,8 @@ package unicam.progettofiliera.models.prodotti;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import unicam.progettofiliera.models.venditori.Venditore;
+import unicam.progettofiliera.models.prodotti.state.*;
+import unicam.progettofiliera.models.utenti.venditori.Venditore;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -25,7 +26,7 @@ public abstract class Prodotto {
     private StatoProdotto stato = new InAttesaDiApprovazione();
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "stato")
+    @Column(name = "state")
     @JsonIgnore
     private StatoProdottoEnum statoEnum = StatoProdottoEnum.INATTESADIAPPROVAZIONE;
 

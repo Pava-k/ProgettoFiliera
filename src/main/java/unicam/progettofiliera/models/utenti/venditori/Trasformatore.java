@@ -1,4 +1,4 @@
-package unicam.progettofiliera.models.venditori;
+package unicam.progettofiliera.models.utenti.venditori;
 
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;

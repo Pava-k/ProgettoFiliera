@@ -1,4 +1,4 @@
-package unicam.progettofiliera.models;
+package unicam.progettofiliera.models.utenti.registrazione;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.GeneratedValue;
