@@ -8,4 +8,5 @@ public enum Ruolo {
     DISTRIBUTORE,
     ANIMATORE,
     CURATORE
+
 }

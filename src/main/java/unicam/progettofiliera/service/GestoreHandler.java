@@ -53,6 +53,8 @@ public class GestoreHandler {
     }
 
     public ResponseEntity<String> rifiutaRichiesta(Long richiestaId) {
+        AccountRequest richiesta = accountRequestRepository.findById(richiestaId).orElseThrow(()
+                -> new RuntimeException("Richiesta non trovata"));
         accountRequestRepository.deleteById(richiestaId);
         return ResponseEntity.ok().body("Richiesta rifiutata");
     }
@@ -88,5 +90,4 @@ public class GestoreHandler {
         }
     }
 
-    //TODO mostra richieste
 }
