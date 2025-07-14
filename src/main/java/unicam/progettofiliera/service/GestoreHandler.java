@@ -12,16 +12,19 @@ import unicam.progettofiliera.models.utenti.Curatore;
 import unicam.progettofiliera.models.utenti.venditori.Distributore;
 import unicam.progettofiliera.models.utenti.venditori.Produttore;
 import unicam.progettofiliera.models.utenti.venditori.Trasformatore;
-
 import java.util.List;
 
 @Service
 public class GestoreHandler {
 
     private final AccountRequestRepository accountRequestRepository;
+
     private final AnimatoreRepository animatoreRepository;
+
     private final VenditoreRepository venditoreRepository;
+
     private final CuratoreRepository curatoreRepository;
+
     private final AcquirenteRepository acquirenteRepository;
 
     @Autowired
@@ -30,6 +33,7 @@ public class GestoreHandler {
                           VenditoreRepository venditoreRepository,
                           CuratoreRepository curatoreRepository,
                           AcquirenteRepository acquirenteRepository) {
+
         this.accountRequestRepository = accountRequestRepository;
         this.animatoreRepository = animatoreRepository;
         this.venditoreRepository = venditoreRepository;
@@ -41,21 +45,33 @@ public class GestoreHandler {
         return accountRequestRepository.findAll();
     }
 
+    /**
+     * il metodo approva le account request
+     * fornite dagli utenti che avranno un proprio id
+     * assegnando loro l'account specificato nella richiesta del ruolo
+     *
+     * @param id
+     */
     public void approvaRichiesta(Long id) {
+
         AccountRequest richiesta = accountRequestRepository.findById(id).orElseThrow(()
                 -> new RuntimeException("Richiesta non trovata"));
-        Ruolo ruolo = richiesta.getRuoloRichiesto();
-        String nome = richiesta.getNome();
-        String password = richiesta.getPassword();
 
-        creaAccount(ruolo, nome, password);
+        creaAccount(
+                richiesta.getRuoloRichiesto(),
+                richiesta.getNome(),
+                richiesta.getPassword()
+        );
         accountRequestRepository.delete(richiesta);
     }
 
     public ResponseEntity<String> rifiutaRichiesta(Long richiestaId) {
+
         AccountRequest richiesta = accountRequestRepository.findById(richiestaId).orElseThrow(()
                 -> new RuntimeException("Richiesta non trovata"));
+
         accountRequestRepository.deleteById(richiestaId);
+
         return ResponseEntity.ok().body("Richiesta rifiutata");
     }
 

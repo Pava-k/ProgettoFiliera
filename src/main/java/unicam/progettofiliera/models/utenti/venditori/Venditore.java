@@ -29,7 +29,13 @@ public abstract class Venditore extends UtenteRegistrato {
         prodottiPubblicati.add(p);
     }
 
-    //FACTORY METHOD
+    /**
+     * il FACTORY METHOD permette alle sottoclassi
+     * di creare il prodotto
+     * @param nome
+     * @param descrizione
+     * @param prezzo
+     */
     public abstract Prodotto creaProdotto(String nome, String descrizione, double prezzo);
 
 }

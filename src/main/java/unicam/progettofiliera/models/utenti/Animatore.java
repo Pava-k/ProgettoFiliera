@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import unicam.progettofiliera.models.eventi.Evento;
 import unicam.progettofiliera.models.utenti.registrazione.UtenteRegistrato;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,9 +24,9 @@ public class Animatore extends UtenteRegistrato {
         return eventiPubblicati;
     }
 
-    public Evento creaEvento(String nome,String luogo,String descrizione,int maxP){
-        if (!(maxP<=0))
-            return new Evento(nome,luogo,descrizione,maxP);
+    public Evento creaEvento(String nome,String luogo,String descrizione,int maxPartecipanti){
+        if (!(maxPartecipanti <= 0))
+            return new Evento(nome,luogo,descrizione,maxPartecipanti);
         throw new IllegalArgumentException("il numero massimo di partecipanti deve esser maggiore di 0");
     }
 }

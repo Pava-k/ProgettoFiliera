@@ -30,7 +30,6 @@ public abstract class Prodotto {
     @JsonIgnore
     private StatoProdottoEnum statoEnum = StatoProdottoEnum.INATTESADIAPPROVAZIONE;
 
-
     @ManyToOne
     @JoinColumn(name = "venditore_id", nullable = false)
     @JsonIgnore
@@ -39,16 +38,29 @@ public abstract class Prodotto {
     public Prodotto() {}
 
     public Prodotto(String nome, String descrizione, double prezzo) {
+
         this.nome = nome;
         this.descrizione = descrizione;
         this.prezzo = prezzo;
     }
 
+    /**
+     * il metodo modifica lo stato attuale del prodotto rendendolo
+     * Approvato nel caso in cui sia InAttesaDiApprovazione, altrimenti lancia un'eccezione
+     */
+
     public void approva() {
+
         getStato().approva(this);
     }
 
+    /**
+     * il metodo modifica lo stato attuale del prodotto rendendolo
+     * Rifiutato nel caso in cui sia InAttesaDiApprovazione, altrimenti lancia un'eccezione
+     */
+
     public void rifiuta() {
+
         getStato().rifiuta(this);
     }
 
@@ -92,7 +104,12 @@ public abstract class Prodotto {
         this.venditore = venditore;
     }
 
+    /**
+     * verifica lo stato del prodotto dall'enumerazione
+     * andando a runtime a modificarne lo stato effettivo
+     */
     public StatoProdotto getStato() {
+
         return switch (statoEnum) {
             case INATTESADIAPPROVAZIONE -> new InAttesaDiApprovazione();
             case APPROVATO -> new Approvato();

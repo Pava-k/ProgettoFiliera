@@ -6,19 +6,22 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 
-@MappedSuperclass //questa annotazione non crea una tabella per UtenteRegistrato
+@MappedSuperclass
 public abstract class UtenteRegistrato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
+
     private String nome;
+
     private String password;
 
     public UtenteRegistrato() {}
 
     public UtenteRegistrato(String nome, String password) {
+
         this.nome = nome;
         this.password = password;
     }

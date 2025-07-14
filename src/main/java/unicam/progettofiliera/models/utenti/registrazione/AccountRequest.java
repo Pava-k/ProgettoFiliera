@@ -1,10 +1,7 @@
 package unicam.progettofiliera.models.utenti.registrazione;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class AccountRequest {
@@ -13,14 +10,18 @@ public class AccountRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long idRichiesta;
+
     private String nome;
+
     private String password;
+
+    @Enumerated(EnumType.STRING)
     private Ruolo ruoloRichiesto;
 
     public AccountRequest() {}
 
-
     public AccountRequest(String nome, String password, Ruolo ruoloRichiesto) {
+
         this.nome = nome;
         this.password = password;
         this.ruoloRichiesto = ruoloRichiesto;

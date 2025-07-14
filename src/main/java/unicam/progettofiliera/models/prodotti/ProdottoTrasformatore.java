@@ -14,13 +14,17 @@ public class ProdottoTrasformatore extends Prodotto {
 
     private String processiTrasformativi;
 
+    //i collaboratori (produttori) sono coloro che hanno contribuito
+    // al processo di produzione del prodotto fornendone le materie prime
     @Transient
     private List<Produttore> collaboratori = new ArrayList<>();
 
     public ProdottoTrasformatore() {}
 
-    public ProdottoTrasformatore(String nome, String descrizione, double prezzo, String processi,
+    public ProdottoTrasformatore(String nome, String descrizione,
+                                 double prezzo, String processi,
                                  List<Produttore> collaboratori) {
+
         super(nome, descrizione, prezzo);
         this.processiTrasformativi = processi;
         this.collaboratori = collaboratori;

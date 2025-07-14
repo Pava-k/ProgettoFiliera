@@ -11,12 +11,18 @@ public class Evento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @JsonIgnore
     private Long id;
+
     private String nome;
-    //TODO private Date data;
+
     private String luogo;
+
     private String descrizione;
+
     private int maxPartecipanti;
+
+    @JsonIgnore
     private int postiDisponibili;
+
     @ManyToOne
     @JoinColumn(name = "animatore_id", nullable = false)
     @JsonIgnore
@@ -36,7 +42,7 @@ public class Evento {
         return id;
     }
 
-    //metodo di prova per debug
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -53,7 +59,9 @@ public class Evento {
         return luogo;
     }
 
-    public void setLuogo(String luogo) {this.luogo = luogo; }
+    public void setLuogo(String luogo) {
+        this.luogo = luogo;
+    }
 
     public String getDescrizione() {
         return descrizione;

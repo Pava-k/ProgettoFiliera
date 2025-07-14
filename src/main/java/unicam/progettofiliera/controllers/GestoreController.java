@@ -9,30 +9,47 @@ import unicam.progettofiliera.service.GestoreHandler;
 import java.util.List;
 
 @RestController
-@RequestMapping("/gestorePiattaforma")
+@RequestMapping("/richiesteAccount")
 public class GestoreController {
 
     private final GestoreHandler gestoreHandler;
+
     public GestoreController(GestoreHandler gestoreHandler) {
         this.gestoreHandler = gestoreHandler;
     }
 
-    @GetMapping("/richieste")
+    @GetMapping("/get")
     public ResponseEntity<Object> mostraRichieste(){
+
         List<AccountRequest> listaRichieste = gestoreHandler.getRichieste();
+
         if (!listaRichieste.isEmpty())
             return ResponseEntity.ok(listaRichieste);
         return ResponseEntity.ok("Non è presente nessuna richiesta");
     }
 
+    /**
+     * il gestore approva la richiesta fornita dall'utente
+     * creando l'apposito account
+     * @param id
+     */
+
     @PostMapping("/approva/{id}")
     public ResponseEntity<String> approvaRichiesta(@PathVariable Long id) {
+
         gestoreHandler.approvaRichiesta(id);
         return ResponseEntity.status(HttpStatus.CREATED).body("Utente creato");
     }
 
+    /**
+     * il gestore della piattaforma rifiuta la richiesta
+     * eliminandola dalla lista
+     * @param id
+     */
+
     @DeleteMapping("/rifiuta/{id}")
     public ResponseEntity<String> rifiutaRichiesta(@PathVariable Long id) {
+
         gestoreHandler.rifiutaRichiesta(id);
         return ResponseEntity.ok("Richiesta rifiutata");
     }

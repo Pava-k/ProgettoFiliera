@@ -11,7 +11,9 @@ public class ProdottoProduttore extends Prodotto {
 
     public ProdottoProduttore() {}
 
-    public ProdottoProduttore(String nome, String descrizione, double prezzo, String processi) {
+    public ProdottoProduttore(String nome, String descrizione,
+                              double prezzo, String processi) {
+
         super(nome, descrizione, prezzo);
         this.processiProduttivi = processi;
     }

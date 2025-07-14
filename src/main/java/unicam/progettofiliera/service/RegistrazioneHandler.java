@@ -15,8 +15,13 @@ public class RegistrazioneHandler {
         this.accountRequestRepository = accountRequestRepository;
     }
 
+    /**
+     * il metodo salva la richiesta nell'apposita repository
+     * @param accountRequest
+     */
     public void richiestaRegistrazione(AccountRequest accountRequest) {
-        if(accountRequest.getNome().trim().isEmpty() || accountRequest.getPassword().trim().isEmpty()) {
+        if(accountRequest.getNome().trim().isEmpty() ||
+                accountRequest.getPassword().trim().isEmpty()) {
             throw new IllegalArgumentException("Nome o password non possono essere vuoti");
         }
         accountRequestRepository.save(accountRequest);

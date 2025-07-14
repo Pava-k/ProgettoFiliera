@@ -20,10 +20,17 @@ public class PublicController {
     private final RegistrazioneHandler registrazioneHandler;
 
     public PublicController(RegistrazioneHandler registrazioneHandler) {
+
         this.registrazioneHandler = registrazioneHandler;
     }
 
-    @PostMapping("/signIn")
+    /**
+     *l'utente inoltra la richiesta per il proprio account
+     * inserendo il ruolo specifico e le proprie generalità
+     * @param accountRequest
+     */
+
+    @PostMapping("/registrazione")
     public ResponseEntity<String> signInRequest(@RequestBody AccountRequest accountRequest) {
         registrazioneHandler.richiestaRegistrazione(accountRequest);
         return ResponseEntity.ok("Richiesta inviata con successo");

@@ -11,29 +11,37 @@ import unicam.progettofiliera.models.eventi.Evento;
 public class AnimatoreHandler {
 
     private final EventoRepository eventoRepository;
+
     private final AnimatoreRepository animatoreRepository;
 
     @Autowired
-    public AnimatoreHandler(EventoRepository eventoRepository, AnimatoreRepository animatoreRepository) {
+    public AnimatoreHandler(EventoRepository eventoRepository,
+                            AnimatoreRepository animatoreRepository) {
+
         this.eventoRepository = eventoRepository;
         this.animatoreRepository = animatoreRepository;
     }
 
-    public void caricaEvento(Long animatoreId, String nome, String luogo, String descrizione, int maxP) {
+    public void caricaEvento(Long animatoreId, String nome,
+                             String luogo, String descrizione, int maxPartecipanti) {
+
         Animatore animatore = animatoreRepository.findById(animatoreId).
                 orElseThrow(() -> new RuntimeException("Animatore non trovato"));
 
-        Evento nuovoEvento = animatore.creaEvento(nome, luogo, descrizione, maxP);
+        Evento nuovoEvento = animatore.creaEvento(nome, luogo, descrizione, maxPartecipanti);
         nuovoEvento.setAnimatore(animatore);
         animatore.getEventiPubblicati().add(nuovoEvento);
         eventoRepository.save(nuovoEvento);
     }
 
     public void deleteEvento(Long animatoreId, Long eventoId) {
+
         Animatore animatore = animatoreRepository.findById(animatoreId).
                 orElseThrow(() -> new RuntimeException("Animatore non trovato"));
+
         Evento evento = eventoRepository.findById(eventoId).
                 orElseThrow(() -> new RuntimeException("Evento non trovato"));
+
         if (animatore.getEventiPubblicati().contains(evento)) {
             animatore.getEventiPubblicati().remove(evento);
             eventoRepository.delete(evento);

@@ -16,17 +16,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/ricerca")
 public class RicercaController {
-    private final RicercaHandler ricercaHandler;
 
+    private final RicercaHandler ricercaHandler;
 
     @Autowired
     public RicercaController(RicercaHandler ricercaHandler) {
+
         this.ricercaHandler = ricercaHandler;
     }
 
     @GetMapping("/prodotti")
     public ResponseEntity<Object> ricercaProdotti() {
+
         List<Prodotto> prodotti = ricercaHandler.ricercaProdotti();
+
         if (!prodotti.isEmpty())
             return ResponseEntity.ok(prodotti);
         return ResponseEntity.ok("Il marketplace è vuoto!");
@@ -34,7 +37,9 @@ public class RicercaController {
 
     @GetMapping("/prodotti/{keyword}")
     public ResponseEntity<Object> ricercaProdottoByName(@PathVariable String keyword) {
+
         List<Prodotto> prodotti = ricercaHandler.ricercaProdottoByName(keyword);
+
         if (!prodotti.isEmpty())
             return ResponseEntity.ok(prodotti);
         return ResponseEntity.ok("Prodotto non trovato");
@@ -42,7 +47,9 @@ public class RicercaController {
 
     @GetMapping("/eventi")
     public ResponseEntity<Object> ricercaEventi() {
+
         List<Evento> eventi = ricercaHandler.ricercaEventi();
+
         if (!eventi.isEmpty())
             return ResponseEntity.ok(eventi);
         return ResponseEntity.ok("La bacheca eventi è vuota!");
@@ -50,7 +57,9 @@ public class RicercaController {
 
     @GetMapping("/eventi/{keyword}")
     public ResponseEntity<Object> ricercaEventiByName(@PathVariable String keyword) {
+
         List<Evento> eventi = ricercaHandler.ricercaEventoByName(keyword);
+
         if (!eventi.isEmpty())
             return ResponseEntity.ok(eventi);
         return ResponseEntity.ok("Evento non trovato");
@@ -58,7 +67,9 @@ public class RicercaController {
 
     @GetMapping("/pacchetti")
     public ResponseEntity<Object> ricercaPacchetti() {
+
         List<Pacchetto> pacchetti = ricercaHandler.ricercaPacchetti();
+
         if(!pacchetti.isEmpty())
             return ResponseEntity.ok(pacchetti);
         return ResponseEntity.ok("Il marketplace non contiene pacchetti");
