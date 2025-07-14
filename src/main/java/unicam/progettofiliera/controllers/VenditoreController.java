@@ -3,6 +3,8 @@ package unicam.progettofiliera.controllers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import unicam.progettofiliera.models.Pacchetto;
+import unicam.progettofiliera.models.PacchettoRequestDTO;
 import unicam.progettofiliera.models.prodotti.ProdottoDistributore;
 import unicam.progettofiliera.models.prodotti.ProdottoProduttore;
 import unicam.progettofiliera.models.prodotti.ProdottoTrasformatore;
@@ -57,6 +59,19 @@ public class VenditoreController {
                 prodotto.getPrezzo()
         );
         return ResponseEntity.ok("Prodotto in attesa di verifica, puoi chiudere questa pagina");
+    }
+
+    @PostMapping("/distributore/{idVenditore}/addPacchetto")
+    public ResponseEntity<String> caricaPacchetto(@PathVariable Long idVenditore,
+                                                  @RequestBody PacchettoRequestDTO dto) {
+        venditoreHandler.caricaPacchetto(
+                idVenditore,
+                dto.getNome(),
+                dto.getDescrizione(),
+                dto.getSconto(),
+                dto.getProdottiId());
+
+        return ResponseEntity.ok("Pacchetto caricato con successo.");
     }
 
     @DeleteMapping("{idVenditore}/delete/{idProdotto}")
