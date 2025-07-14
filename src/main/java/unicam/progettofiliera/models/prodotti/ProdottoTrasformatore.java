@@ -1,5 +1,6 @@
 package unicam.progettofiliera.models.prodotti;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Transient;
@@ -17,6 +18,7 @@ public class ProdottoTrasformatore extends Prodotto {
     //i collaboratori (produttori) sono coloro che hanno contribuito
     // al processo di produzione del prodotto fornendone le materie prime
     @Transient
+    @JsonIgnore
     private List<Produttore> collaboratori = new ArrayList<>();
 
     public ProdottoTrasformatore() {}
