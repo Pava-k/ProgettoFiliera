@@ -5,7 +5,7 @@ import jakarta.persistence.CascadeType;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
-import unicam.progettofiliera.models.Pacchetto;
+import unicam.progettofiliera.models.prodotti.Pacchetto;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.prodotti.ProdottoDistributore;
 import unicam.progettofiliera.models.prodotti.state.Approvato;

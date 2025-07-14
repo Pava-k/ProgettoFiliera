@@ -1,8 +1,7 @@
-package unicam.progettofiliera.models;
+package unicam.progettofiliera.models.prodotti;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.utenti.venditori.Distributore;
 
 import java.util.ArrayList;

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import unicam.progettofiliera.infrastructure.AcquirenteRepository;
 import unicam.progettofiliera.infrastructure.ProdottoRepository;
 import unicam.progettofiliera.infrastructure.VenditoreRepository;
-import unicam.progettofiliera.models.Pacchetto;
+import unicam.progettofiliera.models.prodotti.Pacchetto;
 import unicam.progettofiliera.models.prodotti.Prodotto;
 import unicam.progettofiliera.models.prodotti.state.Approvato;
 import unicam.progettofiliera.models.utenti.acquirenti.Acquirente;

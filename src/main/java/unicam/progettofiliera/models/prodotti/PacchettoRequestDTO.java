@@ -1,4 +1,4 @@
-package unicam.progettofiliera.models;
+package unicam.progettofiliera.models.prodotti;
 
 import java.util.ArrayList;
 import java.util.List;
